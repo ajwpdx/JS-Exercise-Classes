@@ -21,6 +21,10 @@ class Airplane {
   }
 }
 
+const boeing = new Airplane('Boeing')
+
+console.log(boeing)
+
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -40,9 +44,40 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
+//Create Constructor
 class Person {
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
+  eat(item){
+    if(this.stomach.length < 10){
+      this.stomach.push(item);
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`
+  }
 
 }
+
+
+//Create Objects
+const personOne = new Person('Ashton', 34);
+const personTwo = new Person ('Alex', 30);
+
+
+//Test Actions
+console.log(personTwo.toString())
+personOne.eat('tacos')
+personOne.eat('fried chicken')
+console.log(personOne.stomach)
+personOne.poop();
+console.log(personOne.stomach)
 
 /*
   TASK 2
@@ -58,9 +93,49 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
+//Create Constuctor
 class Car {
+  constructor(model,milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank += gallons;
+  }
+  drive(distance){
+    if(distance < this.tank * this.milesPerGallon){
+      this.odometer += distance;
+      this.tank -= (distance / this.milesPerGallon);
+      } else { 
+      this.odometer += this.tank * this.milesPerGallon;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles`;
+      }
 
+  }
 }
+
+//Create Objects
+const subaruOutback = new Car("Outback", 30)
+console.log(subaruOutback)
+
+//Test Actions
+subaruOutback.fill(4) //add 4 gallons
+console.log(subaruOutback) 
+subaruOutback.fill(10) //add 10 gallons
+console.log(subaruOutback)
+subaruOutback.drive(210) //drove 210 miles
+console.log(subaruOutback)
+console.log(subaruOutback.drive(500)) //attempt to drive 500 miles
+subaruOutback.drive(500)
+console.log(subaruOutback)
+subaruOutback.fill(8) //add 8 gallons
+console.log(subaruOutback)
+subaruOutback.drive(90) //drive 90 miles
+console.log(subaruOutback)
+
 
 /*
   TASK 3
@@ -74,9 +149,29 @@ class Car {
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
-class Lambdasian {
 
+//Create Constructor
+class Lambdasian {
+  constructor(attr){
+    this.name = attr.name;
+    this.age = attr.age;
+    this.location = attr.location;
+    }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }  
 }
+
+//Create Objects
+const alex = new Lambdasian({
+  name:'Alex', 
+  age:30,
+  location:'Portland'})
+
+console.log(alex)
+
+//Test Actions
+console.log(alex.speak())
 
 /*
   TASK 4
@@ -92,9 +187,41 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
 
+//Create Constructor
+class Instructor extends Lambdasian {
+  constructor(attr){
+    super(attr)
+    this.specialty = attr.specialty;
+    this.favLanguage = attr.favLanguage;
+    this.catchPhrase = attr.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
+  gradeAssgn(student){
+    return student.grade += Math.floor(Math.random()*(10+10)-10);
+  }
 }
+
+//Create Objects
+const brit = new Instructor ({
+  name:'Brit', 
+  age:32,
+  location:'Canada',
+  specialty: 'web basics',
+  favLanguage: 'JavaScript',
+  catchPhrase: 'good morning class'
+})
+
+//Test Actions
+console.log(brit.demo("Array Methods"))
+console.log(brit.grade(alex,"Intro to JS"))
+console.log(brit)
+
 
 /*
   TASK 5
@@ -111,9 +238,51 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
 
+//Create Constructor
+class Student extends Lambdasian {
+  constructor(attr){
+    super(attr)
+    this.previousBackground = attr.previousBackground;
+    this.className = attr.className;
+    this.favSubjects = attr.favSubjects;
+    this.grade = attr.grade
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects}`
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
+  graduate(){
+    if(this.grade >= 70){
+      return `With a grade of ${this.grade}, you are able to graduate`
+    } else {
+      return `Sorry, your grade is too low. Keep trying`
+    }
+  }
 }
+
+//Create Objects
+const bob = new Student ({
+  name:'Bob',
+  age: 35,
+  location: 'Chicago',
+  previousBackground: 'fire fighter',
+  className: 'Full Stack Web Development',
+  favSubjects: "CSS, JavaScript, and React",
+  grade: 70
+})
+
+console.log(bob)
+
+//Test Actions
+console.log(bob.listSubjects())
+console.log(bob.PRAssignment("Unit 1"))
+console.log(bob.sprintChallenge('WaterMyPlants'))
 
 /*
   TASK 6
@@ -128,18 +297,56 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
-
+//Create Constructor
+class ProjectManager extends Instructor {
+  constructor(attr){
+    super(attr)
+    this.gradClassName = attr.gradClassName,
+    this.favInstructor = attr.favInstructor
+  }
+  standUp(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode(student,subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
+  }
 }
+
+//Create Objects
+const pete = new ProjectManager({
+  name:'Pete', 
+  age:36,
+  location:'Phoenix',
+  specialty: 'React',
+  favLanguage: 'Python',
+  catchPhrase: 'noice',
+  gradClassName: 'web21',
+  favInstructor: brit
+})
+
+console.log(pete)
+
+//Test Actions
+console.log(pete.standUp("web33_pete"))
+console.log(pete.debugsCode(bob,"Python"))
 
 /*
   STRETCH PROBLEM (no tests!)
-    - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    -x Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+    -x Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
     - Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+//Test Actions
+
+console.log(brit.gradeAssgn(bob))
+console.log(bob)
+console.log(pete.gradeAssgn(bob))
+console.log(bob)
+console.log(bob.graduate())
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
