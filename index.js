@@ -44,7 +44,7 @@ console.log(boeing)
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-//Person Constructor
+//Create Constructor
 class Person {
   constructor(name, age){
     this.name = name;
@@ -66,12 +66,12 @@ class Person {
 }
 
 
-//Creating Objects
+//Create Objects
 const personOne = new Person('Ashton', 34);
 const personTwo = new Person ('Alex', 30);
 
 
-//Actions
+//Test Actions
 console.log(personTwo.toString())
 personOne.eat('tacos')
 personOne.eat('fried chicken')
@@ -93,7 +93,7 @@ console.log(personOne.stomach)
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-//Car constructor
+//Create Constuctor
 class Car {
   constructor(model,milesPerGallon){
     this.model = model;
@@ -117,11 +117,11 @@ class Car {
   }
 }
 
-//Creating objects
+//Create Objects
 const subaruOutback = new Car("Outback", 30)
 console.log(subaruOutback)
 
-//Actions
+//Test Actions
 subaruOutback.fill(4) //add 4 gallons
 console.log(subaruOutback) 
 subaruOutback.fill(10) //add 10 gallons
@@ -150,7 +150,7 @@ console.log(subaruOutback)
         + {name} and {location} of course come from the instance's own properties.
 */
 
-//Create constructor
+//Create Constructor
 class Lambdasian {
   constructor(attr){
     this.name = attr.name;
@@ -162,13 +162,15 @@ class Lambdasian {
   }  
 }
 
-//create object
+//Create Objects
 const alex = new Lambdasian({
   name:'Alex', 
   age:30,
   location:'Portland'})
 
-//Actions
+console.log(alex)
+
+//Test Actions
 console.log(alex.speak())
 
 /*
@@ -186,6 +188,7 @@ console.log(alex.speak())
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
 
+//Create Constructor
 class Instructor extends Lambdasian {
   constructor(attr){
     super(attr)
@@ -201,6 +204,7 @@ class Instructor extends Lambdasian {
   }
 }
 
+//Create Objects
 const brit = new Instructor ({
   name:'Brit', 
   age:32,
@@ -210,6 +214,7 @@ const brit = new Instructor ({
   catchPhrase: 'good morning class'
 })
 
+//Test Actions
 console.log(brit.demo("Array Methods"))
 console.log(brit.grade(alex,"Intro to JS"))
 console.log(brit)
@@ -229,6 +234,8 @@ console.log(brit)
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
+
+//Create Constructor
 class Student extends Lambdasian {
   constructor(attr){
     super(attr)
@@ -247,6 +254,7 @@ class Student extends Lambdasian {
   }
 }
 
+//Create Objects
 const bob = new Student ({
   name:'Bob',
   age: 35,
@@ -257,6 +265,8 @@ const bob = new Student ({
 })
 
 console.log(bob)
+
+//Test Actions
 console.log(bob.listSubjects())
 console.log(bob.PRAssignment("Unit 1"))
 console.log(bob.sprintChallenge('WaterMyPlants'))
@@ -274,9 +284,38 @@ console.log(bob.sprintChallenge('WaterMyPlants'))
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-// class ProjectManager {
+//Create Constructor
+class ProjectManager extends Instructor {
+  constructor(attr){
+    super(attr)
+    this.gradClassName = attr.gradClassName,
+    this.favInstructor = attr.favInstructor
+  }
+  standup(channel){
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+  debugsCode(student,subject){
+    return `${this.name} debugs ${student.name}'s code on ${subject}`
+  }
+}
 
-// }
+//Create Objects
+const pete = new ProjectManager({
+  name:'Pete', 
+  age:36,
+  location:'Phoenix',
+  specialty: 'React',
+  favLanguage: 'Python',
+  catchPhrase: 'noice',
+  gradClassName: 'web21',
+  favInstructor: brit
+})
+
+console.log(pete)
+
+//Test Actions
+console.log(pete.standup("web33_pete"))
+console.log(pete.debugsCode(bob,"Python"))
 
 /*
   STRETCH PROBLEM (no tests!)
