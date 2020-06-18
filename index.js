@@ -304,7 +304,7 @@ class ProjectManager extends Instructor {
     this.gradClassName = attr.gradClassName,
     this.favInstructor = attr.favInstructor
   }
-  standup(channel){
+  standUp(channel){
     return `${this.name} announces to ${channel}, @channel standy times!`
   }
   debugsCode(student,subject){
@@ -327,7 +327,7 @@ const pete = new ProjectManager({
 console.log(pete)
 
 //Test Actions
-console.log(pete.standup("web33_pete"))
+console.log(pete.standUp("web33_pete"))
 console.log(pete.debugsCode(bob,"Python"))
 
 /*
