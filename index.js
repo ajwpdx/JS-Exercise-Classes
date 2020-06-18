@@ -202,6 +202,9 @@ class Instructor extends Lambdasian {
   grade(student, subject){
     return `${student.name} receives a perfect score on ${subject}`
   }
+  gradeAssgn(student){
+    return student.grade += Math.floor(Math.random()*(10+10)-10);
+  }
 }
 
 //Create Objects
@@ -218,6 +221,7 @@ const brit = new Instructor ({
 console.log(brit.demo("Array Methods"))
 console.log(brit.grade(alex,"Intro to JS"))
 console.log(brit)
+
 
 /*
   TASK 5
@@ -242,6 +246,7 @@ class Student extends Lambdasian {
     this.previousBackground = attr.previousBackground;
     this.className = attr.className;
     this.favSubjects = attr.favSubjects;
+    this.grade = attr.grade
   }
   listSubjects(){
     return `Loving ${this.favSubjects}`
@@ -252,6 +257,13 @@ class Student extends Lambdasian {
   sprintChallenge(subject){
     return `${this.name} has begun sprint challenge on ${subject}`
   }
+  graduate(){
+    if(this.grade >= 70){
+      return `With a grade of ${this.grade}, you are able to graduate`
+    } else {
+      return `Sorry, your grade is too low. Keep trying`
+    }
+  }
 }
 
 //Create Objects
@@ -261,7 +273,8 @@ const bob = new Student ({
   location: 'Chicago',
   previousBackground: 'fire fighter',
   className: 'Full Stack Web Development',
-  favSubjects: "CSS, JavaScript, and React"
+  favSubjects: "CSS, JavaScript, and React",
+  grade: 70
 })
 
 console.log(bob)
@@ -319,12 +332,21 @@ console.log(pete.debugsCode(bob,"Python"))
 
 /*
   STRETCH PROBLEM (no tests!)
-    - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    -x Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+    -x Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
     - Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+//Test Actions
+
+console.log(brit.gradeAssgn(bob))
+console.log(bob)
+console.log(pete.gradeAssgn(bob))
+console.log(bob)
+console.log(bob.graduate())
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
