@@ -21,6 +21,10 @@ class Airplane {
   }
 }
 
+const boeing = new Airplane('Boeing')
+
+console.log(boeing)
+
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -40,9 +44,40 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
+//Person Constructor
 class Person {
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
+  }
+  eat(item){
+    if(this.stomach.length < 10){
+      this.stomach.push(item);
+    }
+  }
+  poop(){
+    this.stomach = [];
+  }
+  toString(){
+    return `${this.name}, ${this.age}`
+  }
 
 }
+
+
+//Creating Objects
+const personOne = new Person('Ashton', 34);
+const personTwo = new Person ('Alex', 30);
+
+
+//Actions
+console.log(personTwo.toString())
+personOne.eat('tacos')
+personOne.eat('fried chicken')
+console.log(personOne.stomach)
+personOne.poop();
+console.log(personOne.stomach)
 
 /*
   TASK 2
@@ -58,9 +93,49 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
+//Car constructor
 class Car {
+  constructor(model,milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+  }
+  fill(gallons){
+    this.tank += gallons;
+  }
+  drive(distance){
+    if(distance < this.tank * this.milesPerGallon){
+      this.odometer += distance;
+      this.tank -= (distance / this.milesPerGallon);
+      } else { 
+      this.odometer += this.tank * this.milesPerGallon;
+      this.tank = 0;
+      return `I ran out of fuel at ${this.odometer} miles`;
+      }
 
+  }
 }
+
+//Creating objects
+const subaruOutback = new Car("Outback", 30)
+console.log(subaruOutback)
+
+//Actions
+subaruOutback.fill(4) //add 4 gallons
+console.log(subaruOutback) 
+subaruOutback.fill(10) //add 10 gallons
+console.log(subaruOutback)
+subaruOutback.drive(210) //drove 210 miles
+console.log(subaruOutback)
+console.log(subaruOutback.drive(500)) //attempt to drive 500 miles
+subaruOutback.drive(500)
+console.log(subaruOutback)
+subaruOutback.fill(8) //add 8 gallons
+console.log(subaruOutback)
+subaruOutback.drive(90) //drive 90 miles
+console.log(subaruOutback)
+
 
 /*
   TASK 3
@@ -74,9 +149,27 @@ class Car {
         + Speaking should return a phrase `Hello my name is {name}, I am from {location}`.
         + {name} and {location} of course come from the instance's own properties.
 */
-class Lambdasian {
 
+//Create constructor
+class Lambdasian {
+  constructor(attr){
+    this.name = attr.name;
+    this.age = attr.age;
+    this.location = attr.location;
+    }
+  speak(){
+    return `Hello my name is ${this.name}, I am from ${this.location}`
+  }  
 }
+
+//create object
+const alex = new Lambdasian({
+  name:'Alex', 
+  age:30,
+  location:'Portland'})
+
+//Actions
+console.log(alex.speak())
 
 /*
   TASK 4
@@ -92,9 +185,34 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
 
+class Instructor extends Lambdasian {
+  constructor(attr){
+    super(attr)
+    this.specialty = attr.specialty;
+    this.favLanguage = attr.favLanguage;
+    this.catchPhrase = attr.catchPhrase;
+  }
+  demo(subject){
+    return `Today we are learning about ${subject}`
+  }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+  }
 }
+
+const brit = new Instructor ({
+  name:'Brit', 
+  age:32,
+  location:'Canada',
+  specialty: 'web basics',
+  favLanguage: 'JavaScript',
+  catchPhrase: 'good morning class'
+})
+
+console.log(brit.demo("Array Methods"))
+console.log(brit.grade(alex,"Intro to JS"))
+console.log(brit)
 
 /*
   TASK 5
@@ -111,9 +229,37 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-
+class Student extends Lambdasian {
+  constructor(attr){
+    super(attr)
+    this.previousBackground = attr.previousBackground;
+    this.className = attr.className;
+    this.favSubjects = attr.favSubjects;
+  }
+  listSubjects(){
+    return `Loving ${this.favSubjects}`
+  }
+  PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
 }
+
+const bob = new Student ({
+  name:'Bob',
+  age: 35,
+  location: 'Chicago',
+  previousBackground: 'fire fighter',
+  className: 'Full Stack Web Development',
+  favSubjects: "CSS, JavaScript, and React"
+})
+
+console.log(bob)
+console.log(bob.listSubjects())
+console.log(bob.PRAssignment("Unit 1"))
+console.log(bob.sprintChallenge('WaterMyPlants'))
 
 /*
   TASK 6
@@ -128,9 +274,9 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+// class ProjectManager {
 
-}
+// }
 
 /*
   STRETCH PROBLEM (no tests!)
